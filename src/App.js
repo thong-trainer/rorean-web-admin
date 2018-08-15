@@ -10,8 +10,8 @@ import Layout from "./components/layout/Layout"
 import NotFound from "./components/layout/NotFound"
 import HomeIndex from "./pages/home/Index"
 import TestIndex from "./pages/test/Index"
-import TestStore from "./pages/test/Store"
-import Todos from "./pages/Todos"
+import TestForm from "./pages/test/Form"
+import TestView from "./pages/test/View"
 
 const routes = [
   { path: '/',
@@ -22,9 +22,17 @@ const routes = [
     exact: true,
     component: TestIndex,
   },
+  { path: '/contact/view/:id',
+    exact: true,
+    component: TestView,
+  },
   { path: '/contact/store',
     exact: true,
-    component: TestStore,
+    component: TestForm,
+  },
+  { path: '/contact/update/:id',
+    exact: true,
+    component: TestForm,
   }
 ]
 
@@ -43,7 +51,6 @@ class App extends Component {
                 )}
               />
             ))}
-            <Route path="/todo" component={Todos}/>
             <Layout>
               <Route component={NotFound}/>
             </Layout>

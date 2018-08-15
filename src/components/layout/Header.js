@@ -35,7 +35,7 @@ export default class Header extends React.Component {
                       <li>
                         <a href="/">
                           <div className="pull-left">
-                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
+                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Placeholder"/>
                           </div>
                           <h4>
                             Support Team
@@ -47,7 +47,7 @@ export default class Header extends React.Component {
                       <li>
                         <a href="/">
                           <div className="pull-left">
-                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user3-128x128.jpg" className="img-circle" alt="User Image"/>
+                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user3-128x128.jpg" className="img-circle" alt="User Placeholder"/>
                           </div>
                           <h4>
                             AdminLTE Design Team
@@ -59,7 +59,7 @@ export default class Header extends React.Component {
                       <li>
                         <a href="/">
                           <div className="pull-left">
-                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user4-128x128.jpg" className="img-circle" alt="User Image"/>
+                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user4-128x128.jpg" className="img-circle" alt="User Placeholder"/>
                           </div>
                           <h4>
                             Developers
@@ -71,7 +71,7 @@ export default class Header extends React.Component {
                       <li>
                         <a href="/">
                           <div className="pull-left">
-                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
+                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Placeholder"/>
                           </div>
                           <h4>
                             Sales Department
@@ -83,7 +83,7 @@ export default class Header extends React.Component {
                       <li>
                         <a href="/">
                           <div className="pull-left">
-                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
+                            <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Placeholder"/>
                           </div>
                           <h4>
                             Reviewers
@@ -216,13 +216,13 @@ export default class Header extends React.Component {
               {/* <!-- User Account: style can be found in dropdown.less --> */}
               <li className="dropdown user user-menu">
                 <a href="/" className="dropdown-toggle" data-toggle="dropdown">
-                  <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="user-image" alt="User Image"/>
+                  <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="user-image" alt="User Placeholder"/>
                   <span className="hidden-xs">Alexander Pierce</span>
                 </a>
                 <ul className="dropdown-menu">
-                  {/* <!-- User image --> */}
+                  {/* <!-- User Placeholder --> */}
                   <li className="user-header">
-                    <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Image"/>
+                    <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Placeholder"/>
 
                     <p>
                       Alexander Pierce - Web Developer

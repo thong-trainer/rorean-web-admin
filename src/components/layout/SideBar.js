@@ -5,8 +5,6 @@ import { NavLink } from 'react-router-dom';
 
 export default class SideBar extends React.Component {
   getNavLinkClass = (path) => {
-    console.log("getNavLinkClass");
-    console.log(this.props);
     return this.props.location.pathname === path ? "active" : "";
   }
 
@@ -57,9 +55,6 @@ export default class SideBar extends React.Component {
               <a href="/">
                 <i className="fa fa-user-circle"></i>
                 <span>Teachers</span>
-                <span className="pull-right-container">
-                  <small className="label pull-right bg-green">new</small>
-                </span>
               </a>
             </li>
             <li className={this.getNavLinkClass("/contact")}>

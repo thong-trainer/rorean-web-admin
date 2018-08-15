@@ -19,9 +19,9 @@ export default class Index extends React.Component {
             <div className="box box-widget">
               <div className="box-header with-border">
                 <div className="user-block">
-                  <img className="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image"/>
+                  <img className="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Placeholder"/>
                   <span className="username">
-                    <a href="#">Jonathan Burke Jr.</a>
+                    <a href="/">Jonathan Burke Jr.</a>
                   </span>
                   <span className="description">Shared publicly - 7:30 PM Today</span>
                 </div>
@@ -38,7 +38,7 @@ export default class Index extends React.Component {
                 </div>
               </div>
               <div className="box-body">
-                <img className="img-responsive pad" src="../dist/img/photo2.png" alt="Photo"/>
+                <img className="img-responsive pad" src="../dist/img/photo2.png" alt="Placeholder"/>
 
                 <p>I took this photo this morning. What do you guys think?</p>
                 <button type="button" className="btn btn-default btn-xs">
@@ -51,7 +51,7 @@ export default class Index extends React.Component {
               </div>
               <div className="box-footer box-comments">
                 <div className="box-comment">
-                  <img className="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image"/>
+                  <img className="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Placeholder"/>
 
                   <div className="comment-text">
                     <span className="username">
@@ -62,7 +62,7 @@ export default class Index extends React.Component {
                   </div>
                 </div>
                 <div className="box-comment">
-                  <img className="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image"/>
+                  <img className="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Placeholder"/>
 
                   <div className="comment-text">
                     <span className="username">
@@ -74,7 +74,7 @@ export default class Index extends React.Component {
                 </div>
               </div>
               <div className="box-footer">
-                <form action="#" method="post">
+                <form action="/" method="post">
                   <img className="img-responsive img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text"/>
                   <div className="img-push">
                     <input type="text" className="form-control input-sm" placeholder="Press enter to post comment"/>
@@ -89,9 +89,9 @@ export default class Index extends React.Component {
             <div className="box box-widget">
               <div className="box-header with-border">
                 <div className="user-block">
-                  <img className="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image"/>
+                  <img className="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Placeholder"/>
                   <span className="username">
-                    <a href="#">Jonathan Burke Jr.</a>
+                    <a href="/">Jonathan Burke Jr.</a>
                   </span>
                   <span className="description">Shared publicly - 7:30 PM Today</span>
                 </div>
@@ -117,7 +117,7 @@ export default class Index extends React.Component {
                 <p>the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
 
                 <div className="attachment-block clearfix">
-                  <img className="attachment-img" src="../dist/img/photo1.png" alt="Attachment Image"/>
+                  <img className="attachment-img" src="../dist/img/photo1.png" alt="Attachment"/>
 
                   <div className="attachment-pushed">
                     <h4 className="attachment-heading">
@@ -126,7 +126,7 @@ export default class Index extends React.Component {
 
                     <div className="attachment-text">
                       Description about the attachment can be placed here. Lorem Ipsum is simply dummy text of the printing and typesetting industry...
-                      <a href="#">more</a>
+                      <a href="/">more</a>
                     </div>
 
                   </div>
@@ -145,7 +145,7 @@ export default class Index extends React.Component {
               <div className="box-footer box-comments">
                 <div className="box-comment">
 
-                  <img className="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image"/>
+                  <img className="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Placeholder"/>
 
                   <div className="comment-text">
                     <span className="username">
@@ -159,7 +159,7 @@ export default class Index extends React.Component {
 
                 <div className="box-comment">
 
-                  <img className="img-circle img-sm" src="../dist/img/user5-128x128.jpg" alt="User Image"/>
+                  <img className="img-circle img-sm" src="../dist/img/user5-128x128.jpg" alt="User Placeholder"/>
 
                   <div className="comment-text">
                     <span className="username">

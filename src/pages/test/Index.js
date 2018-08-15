@@ -1,60 +1,29 @@
-import "../../css/jquery.dataTables.css";
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import {Link} from "react-router-dom";
+
 import Loading from "../../components/layout/Loading";
-// import { ContactTable } from "../../components/ContactTable";
-import Contact from "../../components/Contact";
+import {NotificationContainer} from 'react-notifications';
 import * as ContactActions from "../../actions/ContactActions";
 import ContactStore from "../../stores/ContactStore";
-
-const $ = require("jquery");
-$.DataTable = require("datatables.net");
+// Import React Table
+import ReactTable from "react-table";
+import "react-table/react-table.css";
 
 const CHANGE_EVENT = 'change';
-
-// export class EditButton extends React.Component {
-//
-//   viewItem() {
-//     console.log("The item to view is : ", this.props.item);
-//      //this.context.router.history.push('/contact/store');
-//      return <Redirect to='/target' />
-//   }
-//   render() {
-//
-//     return (
-//       <div className="row">
-//         <div className="col-sm-6">
-//           <button onClick={this.viewItem.bind(this)} className='btn btn-block btn-info btn-sm'>View</button>
-//         </div>
-//         <div className="col-sm-6">
-//           <button onClick={this.viewItem.bind(this)} className='btn btn-block btn-primary btn-sm'>Edit</button>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
 
 export default class Index extends React.Component {
   constructor() {
     super();
     this.getItems = this.getItems.bind(this);
     this.state = {
-      items: ContactStore.getAll(),
+      id: "",
+      items: ContactStore.getAll()
     };
   }
 
   componentWillMount() {
     ContactActions.reloadItemsAsync();
     ContactStore.on(CHANGE_EVENT, this.getItems);
-    this.$el = $(this.el);
-    this.$el.DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    });
   }
 
   componentWillUnmount() {
@@ -62,64 +31,118 @@ export default class Index extends React.Component {
   }
 
   getItems() {
-    this.setState({
-      items: ContactStore.getAll(),
-    });
+    this.setState({items: ContactStore.getAll()});
+  }
+
+  handleDelete() {
+    const item = ContactStore.getById(this.state.id)
+    ContactActions.remove(item);
+    this.setState({ id: "" });
+  }
+
+  showConfirmDelete(id) {
+    this.setState({ id: id });
+
   }
 
   render() {
     const { items } = this.state;
-    
+
     // return nothing when no record
-    if(!this.state.items) {
-      return (
-        <Loading />
-      );
+    if (!items) {
+      return (<Loading/>);
     }
-    const ContactComponents = items.map((item) => {
-        return <Contact key={item._id} {...item}/>;
-    });
 
-    return (
-      <div className="content-wrapper">
-          <section className="content-header">
-            <Link to="/contact/store" className="btn btn-primary pull-right">Add New</Link>
-            <ol className="breadcrumb">
-              <li><Link to="/"><i className="fa fa-home"></i>Home</Link></li>
-              <li className="active">Contacts</li>
-            </ol>
-          </section>
+    return (<div className="content-wrapper">
+      <section className="content-header">
+        <Link to="/contact/store" className="btn btn-primary pull-right">Add New</Link>
+        <ol className="breadcrumb">
+          <li>
+            <Link to="/">
+              <i className="fa fa-home"></i>Home</Link>
+          </li>
+          <li className="active">Contacts</li>
+        </ol>
+      </section>
 
-          <section className="content">
-            <div className="row">
-              <div className="col-xs-12">
-              <div className="box box-primary">
-                <div className="box-header">
-                  <h3 className="box-title">List of contacts</h3>
-                </div>
-                <div className="box-body">
-                  {/* <ContactTable data={this.state.items}>
-                  </ContactTable> */}
-                  <table id="example2" className="table table-bordered table-hover" >
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th with="50px"></th>
-                        <th with="50px"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {ContactComponents}
-                    </tbody>
-                  </table>
-                </div>
+      <section className="content">
+        <div className="row">
+          <div className="col-xs-12">
+            <div className="box box-primary">
+              <div className="box-header">
+                <h3 className="box-title">List of contacts</h3>
               </div>
+              <div className="box-body">
+                <div>
+                  <ReactTable data={items} columns={[
+                      {
+                        Header: "No",
+                        id: "row",
+                        filterable: false,
+                        sortable: false,
+                        maxWidth: 50,
+                        className: "row-center",
+                        Cell: (row) => { return <div>{row.index+1}</div>;}
+                      },
+                      {
+                        Header: 'Name',
+                        accessor: 'name',
+                      },
+                      {
+                        Header: 'Email',
+                        accessor: 'email'
+                      },
+                      {
+                        filterable: false,
+                        sortable: false,
+                        width: 70,
+                        accessor: '_id',
+                        Cell: props => <Link to={'/contact/view/'+props.value} className="btn btn-block btn-info btn-sm">View</Link>
+                      },
+                      {
+                        filterable: false,
+                        sortable: false,
+                        width: 70,
+                        accessor: '_id',
+                        Cell: props => <Link to={'/contact/update/'+props.value} className="btn btn-block btn-primary btn-sm">Edit</Link>
+                      },
+                      {
+                        filterable: false,
+                        sortable: false,
+                        width: 70,
+                        accessor: '_id',
+                        Cell: props => <button onClick={() => this.showConfirmDelete(props.value)} ref="myModal" className="btn btn-block btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger">Delete</button>
+                      }
+                    ]} defaultPageSize={10} filterable={true} className="-striped -highlight"/>
+                  <br/>
+                </div>
 
               </div>
             </div>
-          </section>
+          </div>
         </div>
-    );
+        {/* delete model */}
+        <div className="modal modal-danger fade" id="modal-danger">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 className="modal-title">Confirm</h4>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure, want to delete this record?</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button onClick={this.handleDelete.bind(this)} type="button" className="btn btn-outline" data-dismiss="modal">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* end delete model */}
+        <NotificationContainer/>
+      </section>
+    </div>);
   }
 }
