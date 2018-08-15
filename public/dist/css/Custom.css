@@ -1,0 +1,25 @@
+.content-header > .breadcrumb {
+  float: none !important;
+  background: transparent;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  padding: 7px 5px;
+  position: static !important;
+  top: 15px;
+  right: 10px;
+  left: 10px;
+  border-radius: 2px;
+}
+
+.main-footer {
+  background: #fff;
+  padding: 5px;
+  color: #444;
+  border-top: 1px solid #d2d6de;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 999;
+}
