@@ -1,7 +1,20 @@
 import React from "react";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
+class Header extends React.Component {
 
-export default class Header extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  }
+
+  handleSignOut() {
+    const { cookies } = this.props;
+    cookies.set("permission", "null");
+    cookies.set("user", "null");
+    this.props.history.push("/login");
+  }
+
   render() {
     return (
       <header className="main-header">
@@ -10,7 +23,7 @@ export default class Header extends React.Component {
           {/* <!-- mini logo for sidebar mini 50x50 pixels --> */}
           <span className="logo-mini"><b>R</b>ean</span>
           {/* <!-- logo for regular state and mobile devices --> */}
-          <span className="logo-lg"><b>Rorean</b>Admin</span>
+          <span className="logo-lg"><b>Rorean</b>School</span>
         </a>
         {/* <!-- Header Navbar: style can be found in header.less --> */}
         <nav className="navbar navbar-static-top">
@@ -250,7 +263,7 @@ export default class Header extends React.Component {
                       <a href="/" className="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div className="pull-right">
-                      <a href="/" className="btn btn-default btn-flat">Sign out</a>
+                      <button onClick={this.handleSignOut.bind(this)} className="btn btn-default btn-flat">Sign out</button>
                     </div>
                   </li>
                 </ul>
@@ -262,3 +275,6 @@ export default class Header extends React.Component {
     );
   }
 }
+
+
+export default withCookies(Header);

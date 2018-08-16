@@ -1,25 +1,41 @@
-
-const DOMAIN = "http://128.199.88.174:8080";
-const PATH = "/api";
-const URL = DOMAIN + PATH;
-const SECRET = "?secret=b5ed678f64a4";
-
+// =======================================================================================
+// for test only
+// =======================================================================================
 export function getContacts(index, limit){
-  // return URL + "/contact/" + index + "/" + limit + SECRET;
   return "http://128.199.88.174:8080/api/contact/" + index + "/" + limit+ "?secret=b5ed678f64a4";
 }
 
 export function createContact(){
-  // return URL + "/contact" + SECRET;
   return "http://128.199.88.174:8080/api/contact?secret=b5ed678f64a4";
 }
 
 export function updateContact(id){
-  // return URL + "/contact/" + id + SECRET;
   return "http://128.199.88.174:8080/api/contact/" + id + "?secret=b5ed678f64a4";
 }
 
 export function deleteContact(id){
-  // return URL + "/contact/" + id + SECRET;
   return "http://128.199.88.174:8080/api/contact/" + id + "?secret=b5ed678f64a4";
+}
+
+export function getUsers()
+{
+  return "http://128.199.88.174:3333/api/v1/user/0/10?access_token=123456789";
+}
+// =======================================================================================
+// end test
+// =======================================================================================
+
+
+
+const DOMAIN = "http://128.199.88.174:3333";
+const PATH = "/api/v1";
+const URL = DOMAIN + PATH;
+const ACCESS_TOKEN = "?access_token=123456789";
+
+export function authLogin(){
+  return URL + "/auth/login" + ACCESS_TOKEN;
+}
+
+export function getPermission(userId){
+  return URL + "/permission/user/" + userId + ACCESS_TOKEN;
 }

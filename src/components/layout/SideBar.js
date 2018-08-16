@@ -12,6 +12,16 @@ export default class SideBar extends React.Component {
     return (
       <aside className="main-sidebar">
         <section className="sidebar">
+          <div className="user-panel">
+            <div className="pull-left image">
+              <img src="https://scontent-nrt1-1.xx.fbcdn.net/v/t31.0-8/16903144_1332366483491517_1139662969174240473_o.jpg?_nc_cat=1&oh=e69d8b0e9bf6bc755d076559b8cee3af&oe=5BF55FA0" className="img-circle" alt="User Placeholder"/>
+            </div>
+            <div className="pull-left info">
+              <p>Learning for Success</p>
+              <a href="#"><i className="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+
           <form action="/" method="get" className="sidebar-form">
             <div className="input-group">
               <input type="text" name="q" className="form-control" placeholder="Search..." />

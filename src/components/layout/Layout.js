@@ -10,9 +10,9 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <Header />
+        <Header {...this.props}/>
         <SideBar location={this.props.location}/>
-        {this.props.children}        
+        {this.props.children}
         <div className="control-sidebar-bg"></div>
         <Footer />
       </div>

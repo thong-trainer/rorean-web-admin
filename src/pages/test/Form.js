@@ -33,6 +33,13 @@ export default class Form extends React.Component {
     ContactStore.removeListener(CHANGE_EVENT, this.onStoreChanged);
   }
 
+  onStoreChanged() {
+    this.disableLoading();
+    if(!this.state.isEdit) {
+      this.setState({ item: {} });
+    }
+  }
+  
   getItem() {
     var item = ContactStore.getById(this.props.match.params.id);
     this.setState({
@@ -66,13 +73,6 @@ export default class Form extends React.Component {
   disableLoading = () => {
     this.setState({ loading: false });
   };
-
-  onStoreChanged() {
-    this.disableLoading();
-    if(!this.state.isEdit) {
-      this.setState({ item: {} });
-    }
-  }
 
   handleSubmit(event) {
     event.preventDefault();
