@@ -12,7 +12,7 @@ export default class Layout extends React.Component {
       <div className="wrapper">
         <Header />
         <SideBar location={this.props.location}/>
-        {this.props.children}
+        {this.props.children}        
         <div className="control-sidebar-bg"></div>
         <Footer />
       </div>

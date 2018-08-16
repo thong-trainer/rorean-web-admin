@@ -79,6 +79,7 @@ export default class View extends React.Component {
           </div>
         </div>
       </section>
+      <div className="row app-top-margin" />
     </div>);
   }
 }

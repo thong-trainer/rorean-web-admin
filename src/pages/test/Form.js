@@ -149,6 +149,7 @@ export default class Form extends React.Component {
           </div>
         </div>
       </section>
+      <div className="row app-top-margin" />
       <NotificationContainer/>
     </div>);
   }
