@@ -39,7 +39,7 @@ export function update(item) {
   // item checking
   if(item !== undefined && item != null) {
     item.isCheck = true;
-    const url = Api.deleteContact(item._id);
+    const url = Api.updateContact(item._id);
     console.log(url);
     setTimeout(function(){
       // success message

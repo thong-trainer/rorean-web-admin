@@ -1,18 +1,25 @@
 
-const IP_ADDRESS = "http://128.199.88.174";
-const PORT = ":8080";
+const DOMAIN = "http://128.199.88.174:8080";
 const PATH = "/api";
-const URL = IP_ADDRESS + PORT + PATH;
+const URL = DOMAIN + PATH;
 const SECRET = "?secret=b5ed678f64a4";
 
 export function getContacts(index, limit){
-  return URL + "/contact/" + index + "/" + limit + SECRET;
+  // return URL + "/contact/" + index + "/" + limit + SECRET;
+  return "http://128.199.88.174:8080/api/contact/" + index + "/" + limit+ "?secret=b5ed678f64a4";
 }
 
 export function createContact(){
-  return URL + "/contact" + SECRET;
+  // return URL + "/contact" + SECRET;
+  return "http://128.199.88.174:8080/api/contact?secret=b5ed678f64a4";
+}
+
+export function updateContact(id){
+  // return URL + "/contact/" + id + SECRET;
+  return "http://128.199.88.174:8080/api/contact/" + id + "?secret=b5ed678f64a4";
 }
 
 export function deleteContact(id){
-  return URL + "/contact/" + id + SECRET;
+  // return URL + "/contact/" + id + SECRET;
+  return "http://128.199.88.174:8080/api/contact/" + id + "?secret=b5ed678f64a4";
 }

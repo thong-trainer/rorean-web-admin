@@ -79,7 +79,6 @@ export default class Index extends React.Component {
                         Header: "No",
                         id: "row",
                         filterable: false,
-                        sortable: false,
                         maxWidth: 50,
                         className: "row-center",
                         Cell: (row) => { return <div>{row.index+1}</div>;}
