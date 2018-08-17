@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ContactStore from "../../stores/ContactStore";
 import Loading from "../../components/layout/Loading";
 
@@ -21,6 +21,7 @@ export default class View extends React.Component {
     var item = ContactStore.getById(this.props.match.params.id);
     this.setState({ item: item });
   }
+  
 
   render() {
 
@@ -28,7 +29,7 @@ export default class View extends React.Component {
 
     // return nothing when no record
     if (!item) {
-      return <Loading/>;
+      return <Redirect to="/contact" />;
     }
 
     return (<div className="content-wrapper">
@@ -47,7 +48,7 @@ export default class View extends React.Component {
       <section className="content">
         <div className="row">
           <div className="col-lg-6 col-md-6 col-sm-12">
-            <div className="box box-primary">
+            <div className="box">
               <div className="box-header with-border">
                 <h3 className="box-title">Contact Form</h3>
               </div>

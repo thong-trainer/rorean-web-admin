@@ -59,11 +59,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     var setting = props.cookies.get("setting");
+
     this.state = {
       loggedIn: (setting === undefined) ? false : true
     }
     // add school id to localStorage
-    localStorage.setItem("schoolId", setting.permission.schoolId);
+    if(setting !== undefined) {
+      localStorage.setItem("schoolId", setting.permission.schoolId);
+    }
   }
 
   componentWillUpdate() {

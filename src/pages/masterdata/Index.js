@@ -56,7 +56,7 @@ export default class Index extends React.Component {
               </TabList>
 
               <TabPanel>
-                <div className="box box-primary">
+                <div className="box">
                   <div className="box-header">
                      <h3 className="box-title">Add a room</h3>
                      <p className="text-muted">Enter a room that has in your school below to allow the classroom can be relate to it.</p>

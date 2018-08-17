@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import * as ContactActions from "../../actions/ContactActions";
@@ -87,11 +87,11 @@ export default class Form extends React.Component {
 
   render() {
 
-    const { loading, item } = this.state;
+    const { loading, item, isEdit } = this.state;
 
     // return nothing when no record
-    if (!item) {
-      return <Loading />;
+    if (!item && (isEdit)) {
+      return <Redirect to="/contact" />;
     }
 
     return (<div className="content-wrapper">
@@ -111,7 +111,7 @@ export default class Form extends React.Component {
       <section className="content">
         <div className="row">
           <div className="col-lg-6 col-md-6 col-sm-12">
-            <div className="box box-primary">
+            <div className="box">
               <div className="box-header with-border">
                 <h3 className="box-title">Contact Form</h3>
               </div>

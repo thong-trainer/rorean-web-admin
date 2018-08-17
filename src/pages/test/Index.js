@@ -60,7 +60,7 @@ export default class Index extends React.Component {
       <section className="content">
         <div className="row">
           <div className="col-xs-12">
-            <div className="box box-primary">
+            <div className="box">
               <div className="box-header AlertDiv">
                 <h3 className="box-title">List of contacts</h3>
                 <Link to="/contact/store" className="btn btn-primary pull-right">Create</Link>
