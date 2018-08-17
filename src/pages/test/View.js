@@ -33,16 +33,14 @@ export default class View extends React.Component {
 
     return (<div className="content-wrapper">
       <section className="content-header">
+        <h1> View Details</h1>
         <ol className="breadcrumb">
-          <li>
-            <Link to="/">
-              <i className="fa fa-home"></i>Home</Link>
-          </li>
+          <li><Link to="/"><i className="fa fa-dashboard"></i> Home</Link></li>
           <li>
             <Link to="/contact">
               <i className="fa fa-dashboard"></i>Contacts</Link>
           </li>
-          <li className="active">Add New</li>
+          <li className="active">View</li>
         </ol>
       </section>
 

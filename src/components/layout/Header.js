@@ -1,6 +1,7 @@
 import React from "react";
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
+var dateFormat = require('dateformat');
 
 class Header extends React.Component {
 
@@ -8,14 +9,24 @@ class Header extends React.Component {
     cookies: instanceOf(Cookies).isRequired
   }
 
+  constructor(props) {
+    super(props);
+    const setting = props.cookies.get("setting");
+    this.state = {
+      user: setting.user,
+      permission: setting.permission,
+    };
+  }
+
   handleSignOut() {
     const { cookies } = this.props;
-    cookies.set("permission", "null");
-    cookies.set("user", "null");
-    this.props.history.push("/login");
+    cookies.remove("setting");
   }
 
   render() {
+
+    const { user, permission } = this.state;
+
     return (
       <header className="main-header">
         {/* <!-- Logo --> */}
@@ -230,7 +241,7 @@ class Header extends React.Component {
               <li className="dropdown user user-menu">
                 <a href="/" className="dropdown-toggle" data-toggle="dropdown">
                   <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="user-image" alt="User Placeholder"/>
-                  <span className="hidden-xs">Alexander Pierce</span>
+                  <span className="hidden-xs">{user.username}</span>
                 </a>
                 <ul className="dropdown-menu">
                   {/* <!-- User Placeholder --> */}
@@ -238,8 +249,8 @@ class Header extends React.Component {
                     <img src="http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg" className="img-circle" alt="User Placeholder"/>
 
                     <p>
-                      Alexander Pierce - Web Developer
-                      <small>Member since Nov. 2012</small>
+                      {permission.role}
+                      <small>{'Member since ' + dateFormat(permission.createdAt, "mmmm, yyyy")}</small>
                     </p>
                   </li>
                   {/* <!-- Menu Body --> */}

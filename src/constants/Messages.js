@@ -5,4 +5,6 @@ module.exports = {
   DELETE_SUCCESS_MESSAGE: "This perform has been deleted.",
   ERROR_TITLE: "Error!",
   ERROR_MESSAGE: "This perform has something wrong.",
+  INVALID_INFO: "Invalid Information.",
+  SERVER_ERROR: "Could not connect to the server.",
 }

@@ -1,7 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-
-import Loading from "../../components/layout/Loading";
 import {NotificationContainer} from 'react-notifications';
 import * as ContactActions from "../../actions/ContactActions";
 import ContactStore from "../../stores/ContactStore";
@@ -17,6 +15,7 @@ export default class Index extends React.Component {
     this.getItems = this.getItems.bind(this);
     this.state = {
       id: "",
+      loading: true,
       items: ContactStore.getAll()
     };
   }
@@ -31,7 +30,7 @@ export default class Index extends React.Component {
   }
 
   getItems() {
-    this.setState({items: ContactStore.getAll()});
+    this.setState({ loading: false, items: ContactStore.getAll() });
   }
 
   handleDelete() {
@@ -46,21 +45,13 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { items } = this.state;
-
-    // return nothing when no record
-    if (!items) {
-      return (<Loading/>);
-    }
+    const { loading, items } = this.state;
 
     return (<div className="content-wrapper">
       <section className="content-header">
-        <Link to="/contact/store" className="btn btn-primary pull-right">Add New</Link>
+        <h1> Contacts </h1>
         <ol className="breadcrumb">
-          <li>
-            <Link to="/">
-              <i className="fa fa-home"></i>Home</Link>
-          </li>
+          <li><Link to="/"><i className="fa fa-dashboard"></i> Home</Link></li>
           <li className="active">Contacts</li>
         </ol>
       </section>
@@ -69,8 +60,9 @@ export default class Index extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <div className="box box-primary">
-              <div className="box-header">
+              <div className="box-header AlertDiv">
                 <h3 className="box-title">List of contacts</h3>
+                <Link to="/contact/store" className="btn btn-primary pull-right">Create</Link>
               </div>
               <div className="box-body">
                 <div>
@@ -112,10 +104,9 @@ export default class Index extends React.Component {
                         accessor: '_id',
                         Cell: props => <button onClick={() => this.showConfirmDelete(props.value)} ref="myModal" className="btn btn-block btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger">Delete</button>
                       }
-                    ]} defaultPageSize={10} filterable={true} className="-striped -highlight"/>
+                    ]} defaultPageSize={10} filterable={true} loading={loading} className="-striped -highlight"/>
                   <br/>
                 </div>
-
               </div>
             </div>
           </div>

@@ -16,6 +16,8 @@ import HomeIndex from "./pages/home/Index"
 import TestIndex from "./pages/test/Index"
 import TestForm from "./pages/test/Form"
 import TestView from "./pages/test/View"
+import MasterDataIndex from "./pages/masterdata/Index"
+import SettingIndex from "./pages/setting/Index"
 
 
 const routes = [
@@ -38,6 +40,14 @@ const routes = [
   { path: '/contact/update/:id',
     exact: true,
     component: TestForm,
+  },
+  { path: '/masterdata',
+    exact: true,
+    component: MasterDataIndex,
+  },
+  { path: '/setting',
+    exact: true,
+    component: SettingIndex,
   }
 ]
 
@@ -49,11 +59,27 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: (props.cookies.get("permission") == "null") ? false : true
+      loggedIn: (props.cookies.get("setting") === undefined) ? false : true
+    }
+  }
+
+  componentWillUpdate() {
+    // when you clicked on Sign In Button
+    if ( (!this.state.loggedIn) && (this.props.cookies.get("setting"))) {
+      this.setState({ loggedIn: true });
+      return;
+    }
+
+    // when you clicked on Sign Out Button
+    if ( (this.state.loggedIn) && (this.props.cookies.get("setting") === undefined)) {
+      this.setState({ loggedIn: false });
+      return;
     }
   }
 
   render() {
+   // console.log("app cookies: ", this.props.cookies);
+   // console.log("app loggedIn: ", this.state.loggedIn);
     return (
       <Router>
           <Switch>
@@ -70,9 +96,13 @@ class App extends Component {
                 )}
               />
             ))}
-            <Route path="/login" component={Login}/>
+            <Route path="/login" exact render={({props})=>(
+              this.state.loggedIn ? <Redirect to='/'/> : <Login {...props} loggedIn={this.state.loggedIn} />
+            )}/>
             <Layout>
-              <Route component={NotFound}/>
+              <Route exact render={({props})=>(
+                this.state.loggedIn ? <NotFound /> : <Redirect to='/'/>
+              )}/>
             </Layout>
           </Switch>
       </Router>

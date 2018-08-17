@@ -5,12 +5,6 @@ export default class NotFound extends React.Component {
   render() {
     return (
       <div className="content-wrapper">
-          <section className="content-header">
-            <ol className="breadcrumb">
-              <li><Link to="/"><i className="fa fa-home"></i>Home</Link></li>
-              <li className="active">Not found</li>
-            </ol>
-          </section>
 
           <section className="content">
             <div className="error-page">
@@ -21,10 +15,10 @@ export default class NotFound extends React.Component {
 
                 <p>
                   We could not find the page you were looking for.
-                  Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the search form.
+                  Meanwhile, you may <Link to="/">return to dashboard</Link> or try using the search form.
                 </p>
 
-                <form className="search-form">
+                {/* <form className="search-form">
                   <div className="input-group">
                     <input type="text" name="search" className="form-control" placeholder="Search"/>
 
@@ -33,7 +27,7 @@ export default class NotFound extends React.Component {
                       </button>
                     </div>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
           </section>

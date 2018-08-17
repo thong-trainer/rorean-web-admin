@@ -36,7 +36,7 @@ npm start
 ```
 
 ## Architecture
-We use [React](https://reactjs.org/) to build this application and apply [Flow](http://facebook.github.io/flux/) as a pattern.
+We use [React](https://reactjs.org/) to build this application and apply [Flux](http://facebook.github.io/flux/) as a pattern.
 
 <img src="https://cdn-images-1.medium.com/max/1600/0*M-SY5eww-OW9xbMs.png" style="width: 100%;" />
 

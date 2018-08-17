@@ -1,9 +1,9 @@
 import React from "react";
-import { Redirect } from 'react-router-dom';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import  * as Api from "../../utils/AppAPI";
 import  HttpStatus from "../../constants/HttpStatus";
+import  Messages from "../../constants/Messages";
 import axios from 'axios';
 const querystring = require('querystring');
 
@@ -15,15 +15,18 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
+        loading: false,
         invalid: false,
         errorMessage: "",
-        loggedIn: (props.cookies.get("permission") == "null") ? false : true,
-        telephone: "",
-        password: ""
+        telephone: "855-069665533",
+        password: "12345"
     };
+
   }
 
   change = e => {
@@ -32,8 +35,18 @@ class Login extends React.Component {
       });
   };
 
+  enableLoading = () => {
+    this.setState({ loading: true });
+  };
+
+  alertError = (message) => {
+    this.setState({ loading: false, invalid: true, errorMessage: message });
+  };
+
   handleSubmit(event) {
     event.preventDefault();
+    this.enableLoading();
+
     var item = { telephone: this.state.telephone, password: this.state.password };
 
     // check user authentication
@@ -46,40 +59,43 @@ class Login extends React.Component {
           if (permissionResponse.status === HttpStatus.OK) {
 
             // add items to cookie
-            const { cookies } = this.props;
-            cookies.set("user", userResponse["data"]);
-            cookies.set("permission", permissionResponse["data"]);
-            this.props.history.push("/");
+            const user = userResponse["data"];
+            const permission = permissionResponse["data"];
+            const setting = {
+              user: user,
+              permission: permission
+            };
+            this.props.cookies.set("setting", setting);
+
+            console.log("Succes");
           }
           else if (permissionResponse.status === HttpStatus.ACCEPTED) {
             // return invalid messages
-            this.setState({ invalid: true, errorMessage: permissionResponse["data"].message });
+            this.alertError(permissionResponse["data"].message)
           } else {
             // return error message
-            this.setState({ invalid: true, errorMessage: "Invalid information." });
+            this.alertError(Messages.INVALID_INFO)
           }
         });
       } else if (userResponse.status === HttpStatus.ACCEPTED) {
         // return invalid messages
-        this.setState({ invalid: true, errorMessage: userResponse["data"].message });
+        this.alertError(userResponse["data"].message)
       } else {
         // return error message
-        this.setState({ invalid: true, errorMessage: "Invalid information." });
+        this.alertError(Messages.INVALID_INFO)
       }
 
     }).catch(function (error) {
       console.log(error);
-      this.setState({ invalid: true, errorMessage: "The application got some errros." });
+      this.setState({ loading: false, invalid: true, errorMessage: Messages.SERVER_ERROR });
     });
+
+
   }
 
   render() {
 
-    const { telephone, password, loggedIn, invalid, errorMessage } = this.state;
-
-    if(loggedIn) {
-      return <Redirect to="/" />
-    }
+    const { loading, telephone, password, invalid, errorMessage } = this.state;
 
     const classForm = (invalid ? "form-group has-feedback has-error" : "form-group has-feedback")
 
@@ -92,15 +108,15 @@ class Login extends React.Component {
       </div>
       <div className="login-box-body">
         <p className="login-box-msg">Sign in</p>
-
         <form onSubmit={this.handleSubmit}>
           <div className={classForm}>
             <input id="telephone" value={telephone || ''} onChange={e => this.change(e)} type="text" className="form-control" placeholder="Mobile number" required/>
-            <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span className={loading ? "fa fa-refresh fa-spin form-control-feedback" : "glyphicon glyphicon-envelope form-control-feedback"}></span>
+            {/* <span className="glyphicon glyphicon-envelope form-control-feedback"></span> */}
           </div>
           <div className={classForm}>
             <input id="password" value={password || ''} onChange={e => this.change(e)} type="password"  className="form-control" placeholder="Password" required/>
-            <span className="glyphicon glyphicon-lock form-control-feedback"></span>
+            <span className={loading ? "fa fa-refresh fa-spin form-control-feedback" : "glyphicon glyphicon-lock form-control-feedback"}></span>
             {invalid ? <span className="help-block">{errorMessage}</span> : ''}
           </div>
           <div className="row">

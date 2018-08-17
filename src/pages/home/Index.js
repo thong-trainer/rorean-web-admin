@@ -5,14 +5,13 @@ export default class Index extends React.Component {
   render() {
     return (<div className="content-wrapper">
       <section className="content-header">
+        <h1> Dashboard </h1>
         <ol className="breadcrumb">
-          <li>
-            <Link to="/">
-              <i className="fa fa-home"></i>Home</Link>
-          </li>
+          <li><Link to="/"><i className="fa fa-dashboard"></i> Home</Link></li>
           <li className="active">Dashboard</li>
         </ol>
       </section>
+
       <section className="content">
         <div className="row">
           <div className="col-md-6">

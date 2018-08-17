@@ -39,7 +39,7 @@ export default class Form extends React.Component {
       this.setState({ item: {} });
     }
   }
-  
+
   getItem() {
     var item = ContactStore.getById(this.props.match.params.id);
     this.setState({
@@ -95,17 +95,16 @@ export default class Form extends React.Component {
     }
 
     return (<div className="content-wrapper">
+
       <section className="content-header">
+        <h1> Add New Contact </h1>
         <ol className="breadcrumb">
-          <li>
-            <Link to="/">
-              <i className="fa fa-home"></i>Home</Link>
-          </li>
+          <li><Link to="/"><i className="fa fa-dashboard"></i> Home</Link></li>
           <li>
             <Link to="/contact">
               <i className="fa fa-dashboard"></i>Contacts</Link>
           </li>
-          <li className="active">Add New</li>
+          <li className="active">Create</li>
         </ol>
       </section>
 

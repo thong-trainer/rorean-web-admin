@@ -1,4 +1,4 @@
-.content-header > .breadcrumb {
+/* .content-header > .breadcrumb {
   float: none !important;
   background: transparent;
   margin-top: 0;
@@ -11,6 +11,7 @@
   left: 10px;
   border-radius: 2px;
 }
+*/
 
 .main-footer {
   background: #fff;
@@ -22,6 +23,35 @@
   position: fixed;
   right: 0;
   z-index: 999;
+}
+
+.box-header {
+  color: #444;
+  display: block;
+  padding: 10px 10px 0px 10px;
+  position: relative;
+}
+
+.box-header>.fa, .box-header>.glyphicon, .box-header>.ion, .box-header .box-title {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0;
+  line-height: 2;
+  vertical-align: middle;
+}
+
+@media (min-width: 960px){
+  .add-button {
+      padding-top: 25px;
+  }
+}
+
+.error-page>.error-content {
+    padding-top: 15px;
+}
+
+.custom-horizontal {
+  padding: 10px 0px 10px 0px
 }
 
 .row-center {
