@@ -58,9 +58,12 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    var setting = props.cookies.get("setting");
     this.state = {
-      loggedIn: (props.cookies.get("setting") === undefined) ? false : true
+      loggedIn: (setting === undefined) ? false : true
     }
+    // add school id to localStorage
+    localStorage.setItem("schoolId", setting.permission.schoolId);
   }
 
   componentWillUpdate() {
@@ -69,7 +72,6 @@ class App extends Component {
       this.setState({ loggedIn: true });
       return;
     }
-
     // when you clicked on Sign Out Button
     if ( (this.state.loggedIn) && (this.props.cookies.get("setting") === undefined)) {
       this.setState({ loggedIn: false });

@@ -107,13 +107,6 @@ export default class Index extends React.Component {
                           sortable: false,
                           width: 70,
                           accessor: '_id',
-                          Cell: props => <Link to={'/contact/view/'+props.value} className="btn btn-block btn-info btn-sm">View</Link>
-                        },
-                        {
-                          filterable: false,
-                          sortable: false,
-                          width: 70,
-                          accessor: '_id',
                           Cell: props => <Link to={'/contact/update/'+props.value} className="btn btn-block btn-primary btn-sm">Edit</Link>
                         },
                         {
@@ -127,14 +120,10 @@ export default class Index extends React.Component {
                     <br/>
 
                   </div>
+
                 </div>
               </TabPanel>
               <TabPanel>
-                <p>
-                  <b>Luigi</b>
-                  (<i>Japanese: ルイージ Hepburn: Ruīji, [ɾɯ.iː.dʑi̥]</i>) (<i>English: /luˈiːdʒi/; Italian: [luˈiːdʒi]</i>) is a fictional character featured in video games and related media released by Nintendo. Created by prominent game designer Shigeru Miyamoto, Luigi is portrayed as the slightly younger but taller fraternal twin brother of Nintendo's mascot Mario, and appears in many games throughout the Mario franchise, often as a sidekick to his brother.
-                </p>
-
               </TabPanel>
               <TabPanel>
                 <p>

@@ -10,7 +10,6 @@ const LIMIT = 50;
 
 export function reloadItemsAsync() {
   const url = Api.getContacts(0, LIMIT);
-  
   axios(url).then((data) => {
     // receive dispatcher
     dispatcher.dispatch({
@@ -18,7 +17,6 @@ export function reloadItemsAsync() {
       items: data["data"]
     });
   });
-
 }
 
 export function create(item) {

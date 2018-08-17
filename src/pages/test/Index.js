@@ -13,9 +13,11 @@ export default class Index extends React.Component {
   constructor() {
     super();
     this.getItems = this.getItems.bind(this);
+    const data = ContactStore.getAll();
+
     this.state = {
       id: "",
-      loading: true,
+      loading: (data.length === 0) ? true : false,
       items: ContactStore.getAll()
     };
   }
@@ -39,9 +41,8 @@ export default class Index extends React.Component {
     this.setState({ id: "" });
   }
 
-  showConfirmDelete(id) {
+  showModalDelete(id) {
     this.setState({ id: id });
-
   }
 
   render() {
@@ -88,13 +89,6 @@ export default class Index extends React.Component {
                         sortable: false,
                         width: 70,
                         accessor: '_id',
-                        Cell: props => <Link to={'/contact/view/'+props.value} className="btn btn-block btn-info btn-sm">View</Link>
-                      },
-                      {
-                        filterable: false,
-                        sortable: false,
-                        width: 70,
-                        accessor: '_id',
                         Cell: props => <Link to={'/contact/update/'+props.value} className="btn btn-block btn-primary btn-sm">Edit</Link>
                       },
                       {
@@ -102,9 +96,19 @@ export default class Index extends React.Component {
                         sortable: false,
                         width: 70,
                         accessor: '_id',
-                        Cell: props => <button onClick={() => this.showConfirmDelete(props.value)} ref="myModal" className="btn btn-block btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger">Delete</button>
+                        Cell: props => <button onClick={() => this.showModalDelete(props.value)} ref="myModal" className="btn btn-block btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger">Delete</button>
                       }
-                    ]} defaultPageSize={10} filterable={true} loading={loading} className="-striped -highlight"/>
+                    ]}
+                    getTdProps={(state, rowInfo, column, instance) => {
+                      return {
+                        onClick: (e, handleOriginal) => {
+                          if(column.Header !== undefined) {
+                            this.props.history.push('/contact/view/'+rowInfo.original._id);
+                          }
+                        }
+                      };
+                    }}
+                    defaultPageSize={10} filterable={true} loading={loading} className="-striped -highlight"/>
                   <br/>
                 </div>
               </div>

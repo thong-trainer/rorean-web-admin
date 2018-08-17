@@ -13,6 +13,17 @@
 }
 */
 
+@media (max-width: 767px) {
+    .ReactTable .dropdown-menu {
+        position: static !important;
+    }
+}
+@media (min-width: 768px) {
+    .ReactTable {
+        overflow: visible;
+    }
+}
+
 .main-footer {
   background: #fff;
   padding: 5px;
