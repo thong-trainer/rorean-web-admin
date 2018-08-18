@@ -18,10 +18,12 @@ class Login extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     var rememberLogin = props.cookies.get(AppConstants.REMEMBER_LOGIN__KEY);
+
     this.state = {
         loading: false,
         invalid: false,
         errorMessage: "",
+        remember: (rememberLogin !== undefined) ? rememberLogin.remember : false,
         telephone: (rememberLogin !== undefined) ? rememberLogin.telephone : "",
         password: (rememberLogin !== undefined) ? rememberLogin.password : "",
     };
@@ -29,6 +31,12 @@ class Login extends React.Component {
 
   change = e => {
     this.setState({ [e.target.id]: e.target.value });
+  };
+
+  checkBoxChange = e => {
+    this.setState({
+      remember: !this.state.remember
+    });
   };
 
   enableLoading = () => {
@@ -39,11 +47,15 @@ class Login extends React.Component {
     this.setState({ loading: false, invalid: true, errorMessage: message });
   };
 
+
+
   handleSubmit(event) {
     event.preventDefault();
     this.enableLoading();
 
-    const item = { telephone: this.state.telephone, password: this.state.password };
+    const { telephone, password, remember } = this.state;
+
+    const item = { telephone: telephone, password: password };
     // get login api
     var url = Api.authLogin();
     // check user authentication
@@ -65,12 +77,13 @@ class Login extends React.Component {
             if(setting !== undefined) {
               localStorage.setItem(AppConstants.SCHOOL_ID_KEY, setting.permission.schoolId);
             }
-            // add items to cookie
+            // add items to cookies
             const { cookies } = this.props;
             cookies.set(AppConstants.REMEMBER_LOGIN__KEY,
               {
-                telephone: this.state.telephone,
-                password: this.state.password,
+                remember: remember,
+                telephone: telephone,
+                password: (remember) ? password : "",
               }
             );
             cookies.set(AppConstants.SETTING_KEY, setting);
@@ -98,7 +111,7 @@ class Login extends React.Component {
 
   render() {
 
-    const { loading, telephone, password, invalid, errorMessage } = this.state;
+    const { loading, telephone, password, invalid, errorMessage, remember } = this.state;
 
     const classForm = (invalid ? "form-group has-feedback has-error" : "form-group has-feedback")
 
@@ -121,6 +134,12 @@ class Login extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-8">
+              <div class="checkbox">
+             <label>
+               <input checked={remember} onChange={e => this.checkBoxChange(e)} type="checkbox"/>
+               Remeber password
+             </label>
+           </div>
               <a href="/login">I forgot my password</a>
             </div>
             <div className="col-xs-4">
