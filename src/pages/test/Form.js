@@ -4,8 +4,7 @@ import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import * as ContactActions from "../../actions/ContactActions";
 import ContactStore from "../../stores/ContactStore";
-import Loading from "../../components/layout/Loading";
-const CHANGE_EVENT = 'change';
+const AppConstants = require("../../constants/AppConstants");
 
 export default class Form extends React.Component {
   constructor() {
@@ -26,11 +25,11 @@ export default class Form extends React.Component {
     if(this.props.match.params.id !== undefined) {
         this.getItem();
     }
-    ContactStore.on(CHANGE_EVENT, this.onStoreChanged);
+    ContactStore.on(AppConstants.CHANGE_EVENT, this.onStoreChanged);
   }
 
   componentWillUnmount() {
-    ContactStore.removeListener(CHANGE_EVENT, this.onStoreChanged);
+    ContactStore.removeListener(AppConstants.CHANGE_EVENT, this.onStoreChanged);
   }
 
   onStoreChanged() {

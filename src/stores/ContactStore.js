@@ -1,7 +1,6 @@
 import { EventEmitter } from "events";
 import dispatcher from "../AppDispatcher";
 const AppConstants = require("../constants/AppConstants");
-const CHANGE_EVENT = 'change';
 
 class ContactStore extends EventEmitter {
   constructor() {
@@ -20,13 +19,13 @@ class ContactStore extends EventEmitter {
 
   create(item) {
     this.items.push(item);
-    this.emit(CHANGE_EVENT);
+    this.emit(AppConstants.CHANGE_EVENT);
   }
 
   update(item) {
     const index = this.items.indexOf(x => x._id === item._id);
     this.items[index] = item;
-    this.emit(CHANGE_EVENT);
+    this.emit(AppConstants.CHANGE_EVENT);
   }
 
   delete(item) {
@@ -34,14 +33,14 @@ class ContactStore extends EventEmitter {
     if (index !== -1) {
         this.items.splice(index, 1);
     }
-    this.emit(CHANGE_EVENT);
+    this.emit(AppConstants.CHANGE_EVENT);
   }
 
   handleActions(action) {
     switch(action.type) {
-      case AppConstants.RECEIVE_CONTACT: {
+      case AppConstants.CONTACT_RECEIVE: {
         this.items = action.items;
-        this.emit(CHANGE_EVENT);
+        this.emit(AppConstants.CHANGE_EVENT);
         break;
       }
       case AppConstants.CONTACT_CREATE: {
@@ -63,7 +62,7 @@ class ContactStore extends EventEmitter {
   }
 }
 
-const contactStore = new ContactStore();
-dispatcher.register(contactStore.handleActions.bind(contactStore));
+const store = new ContactStore();
+dispatcher.register(store.handleActions.bind(store));
 
-export default contactStore;
+export default store;

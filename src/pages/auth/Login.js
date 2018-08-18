@@ -5,8 +5,9 @@ import  * as Api from "../../utils/AppAPI";
 import  HttpStatus from "../../constants/HttpStatus";
 import  Messages from "../../constants/Messages";
 import axios from 'axios';
+
+const AppConstants = require("../../constants/AppConstants");
 const querystring = require('querystring');
-const REMEMBER_PASSWORD = "rememberpassword";
 
 class Login extends React.Component {
   static propTypes = {
@@ -16,12 +17,13 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    var rememberLogin = props.cookies.get(AppConstants.REMEMBER_LOGIN__KEY);
     this.state = {
         loading: false,
         invalid: false,
         errorMessage: "",
-        telephone: "855-069665533",
-        password: props.cookies.get(REMEMBER_PASSWORD)
+        telephone: (rememberLogin !== undefined) ? rememberLogin.telephone : "",
+        password: (rememberLogin !== undefined) ? rememberLogin.password : "",
     };
   }
 
@@ -41,13 +43,14 @@ class Login extends React.Component {
     event.preventDefault();
     this.enableLoading();
 
-    var item = { telephone: this.state.telephone, password: this.state.password };
-
+    const item = { telephone: this.state.telephone, password: this.state.password };
+    // get login api
+    var url = Api.authLogin();
     // check user authentication
-    axios.put(Api.authLogin(), querystring.stringify(item)).then((userResponse) => {
+    axios.put(url, querystring.stringify(item)).then((userResponse) => {
       if(userResponse.status === HttpStatus.OK) {
-        // get api url
-        const url = Api.getPermission(userResponse["data"]._id);
+        // get permission api
+        url = Api.getPermission(userResponse["data"]._id);
         // check user permission
         axios(url).then((permissionResponse) => {
           if (permissionResponse.status === HttpStatus.OK) {
@@ -58,10 +61,19 @@ class Login extends React.Component {
               user: user,
               permission: permission
             };
+            // add school id to localStorage
+            if(setting !== undefined) {
+              localStorage.setItem(AppConstants.SCHOOL_ID_KEY, setting.permission.schoolId);
+            }
             // add items to cookie
             const { cookies } = this.props;
-            cookies.set(REMEMBER_PASSWORD, this.state.password);
-            cookies.set("setting", setting);
+            cookies.set(AppConstants.REMEMBER_LOGIN__KEY,
+              {
+                telephone: this.state.telephone,
+                password: this.state.password,
+              }
+            );
+            cookies.set(AppConstants.SETTING_KEY, setting);
           }
           else if (permissionResponse.status === HttpStatus.ACCEPTED) {
             // return invalid messages
@@ -71,6 +83,7 @@ class Login extends React.Component {
             this.alertError(Messages.INVALID_INFO)
           }
         });
+
       } else if (userResponse.status === HttpStatus.ACCEPTED) {
         // return invalid messages
         this.alertError(userResponse["data"].message)
@@ -80,7 +93,6 @@ class Login extends React.Component {
       }
     }).catch(function (error) {
       console.log(error);
-      this.setState({ loading: false, invalid: true, errorMessage: Messages.SERVER_ERROR });
     });
   }
 

@@ -11,7 +11,7 @@ export default class Layout extends React.Component {
     return (
       <div className="wrapper">
         <Header {...this.props}/>
-        <SideBar location={this.props.location}/>
+        <SideBar location={this.props.location} {...this.props}/>
         {this.props.children}
         <div className="control-sidebar-bg"></div>
         <Footer />

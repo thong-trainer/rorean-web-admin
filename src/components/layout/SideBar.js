@@ -1,37 +1,55 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
+import * as SchoolActions from "../../actions/SchoolActions";
+import SchoolStore from "../../stores/SchoolStore";
 
-
+const AppConstants = require("../../constants/AppConstants");
+const imagePlaceholder = "http://www.cagbd.org/newdesign/assets/dist/img/user2-160x160.jpg";
 
 export default class SideBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getItem = this.getItem.bind(this);
+    this.state = {
+      school: JSON.parse(localStorage.getItem(localStorage.getItem(AppConstants.SCHOOL_KEY)))
+    }
+  }
+
+  componentWillMount() {
+    SchoolActions.getItemAsync();
+    SchoolStore.on(AppConstants.CHANGE_EVENT, this.getItem);
+  }
+
+  componentWillUnmount() {
+    SchoolStore.removeListener(AppConstants.CHANGE_EVENT, this.getItem);
+  }
+
+  getItem() {
+    var item = SchoolStore.getItem();
+    this.setState({ school: item });
+    localStorage.setItem(localStorage.getItem(AppConstants.SCHOOL_KEY), JSON.stringify(item));
+  }
+
   getNavLinkClass = (path) => {
     return this.props.location.pathname === path ? "active" : "";
   }
 
   render() {
+
+    const { school } = this.state;
+
     return (
       <aside className="main-sidebar">
         <section className="sidebar">
           <div className="user-panel">
             <div className="pull-left image">
-              <img src="https://scontent-nrt1-1.xx.fbcdn.net/v/t31.0-8/16903144_1332366483491517_1139662969174240473_o.jpg?_nc_cat=1&oh=e69d8b0e9bf6bc755d076559b8cee3af&oe=5BF55FA0" className="img-circle" alt="User Placeholder"/>
+              <img src={(school !== null) ? school.image.profileUrl: imagePlaceholder} className="img-circle" alt="User Placeholder"/>
             </div>
             <div className="pull-left info">
-              <p>Learning for Success</p>
+              <p>{(school !== null) ? school.schoolName: "Loading..."}</p>
               <NavLink to="/"><i className="fa fa-circle text-success"></i> Online</NavLink>
             </div>
           </div>
-{/* 
-          <form action="/" method="get" className="sidebar-form">
-            <div className="input-group">
-              <input type="text" name="q" className="form-control" placeholder="Search..." />
-              <span className="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" className="btn btn-flat"><i className="fa fa-search"></i>
-                    </button>
-                  </span>
-            </div>
-          </form> */}
-
           <ul className="sidebar-menu" data-widget="tree">
             <li className="header">IMPORTANT</li>
             <li className={this.getNavLinkClass("/")}>
@@ -94,20 +112,6 @@ export default class SideBar extends React.Component {
                 <span>Settings</span>
               </NavLink>
             </li>
-            {/* <li className="treeview">
-              <NavLink to={this.props.location.pathname}>
-                <i className="fa fa-cogs"></i>
-                <span>Settings</span>
-                <span className="pull-right-container">
-                  <i className="fa fa-angle-left pull-right"></i>
-                </span>
-              </NavLink>
-              <ul className="treeview-menu">
-                <li><a href="pages/UI/general.html"><i className="fa fa-circle-o"></i> General</a></li>
-                <li><a href="pages/UI/icons.html"><i className="fa fa-circle-o"></i> Backup</a></li>
-                <li><a href="pages/UI/buttons.html"><i className="fa fa-circle-o"></i> Restore</a></li>
-              </ul>
-            </li> */}
           </ul>
         </section>
       </aside>

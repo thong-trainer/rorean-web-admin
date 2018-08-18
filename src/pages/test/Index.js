@@ -3,11 +3,10 @@ import {Link} from "react-router-dom";
 import {NotificationContainer} from 'react-notifications';
 import * as ContactActions from "../../actions/ContactActions";
 import ContactStore from "../../stores/ContactStore";
+import AppConstants from "../../constants/AppConstants";
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-
-const CHANGE_EVENT = 'change';
 
 export default class Index extends React.Component {
   constructor() {
@@ -24,11 +23,11 @@ export default class Index extends React.Component {
 
   componentWillMount() {
     ContactActions.reloadItemsAsync();
-    ContactStore.on(CHANGE_EVENT, this.getItems);
+    ContactStore.on(AppConstants.CHANGE_EVENT, this.getItems);
   }
 
   componentWillUnmount() {
-    ContactStore.removeListener(CHANGE_EVENT, this.getItems);
+    ContactStore.removeListener(AppConstants.CHANGE_EVENT, this.getItems);
   }
 
   getItems() {

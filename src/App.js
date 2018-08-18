@@ -9,7 +9,6 @@ import {
 import Route from 'react-router-dom/Route';
 
 import Layout from "./components/layout/Layout"
-
 import NotFound from "./components/layout/NotFound"
 import Login from "./pages/auth/Login"
 import HomeIndex from "./pages/home/Index"
@@ -19,6 +18,7 @@ import TestView from "./pages/test/View"
 import MasterDataIndex from "./pages/masterdata/Index"
 import SettingIndex from "./pages/setting/Index"
 
+const AppConstants = require("./constants/AppConstants");
 
 const routes = [
   { path: '/',
@@ -58,33 +58,28 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    var setting = props.cookies.get("setting");
-
+    var setting = props.cookies.get(AppConstants.SETTING_KEY);
     this.state = {
-      loggedIn: (setting === undefined) ? false : true
-    }
-    // add school id to localStorage
-    if(setting !== undefined) {
-      localStorage.setItem("schoolId", setting.permission.schoolId);
+      loggedIn: (setting === undefined) ? false : true,
+      school: {}
     }
   }
 
   componentWillUpdate() {
     // when you clicked on Sign In Button
-    if ( (!this.state.loggedIn) && (this.props.cookies.get("setting"))) {
+    if ( (!this.state.loggedIn) && (this.props.cookies.get(AppConstants.SETTING_KEY))) {
       this.setState({ loggedIn: true });
       return;
     }
     // when you clicked on Sign Out Button
-    if ( (this.state.loggedIn) && (this.props.cookies.get("setting") === undefined)) {
+    if ( (this.state.loggedIn) && (this.props.cookies.get(AppConstants.SETTING_KEY) === undefined)) {
       this.setState({ loggedIn: false });
       return;
     }
   }
 
   render() {
-   // console.log("app cookies: ", this.props.cookies);
-   // console.log("app loggedIn: ", this.state.loggedIn);
+    //console.log("App render:", this.state);
     return (
       <Router>
           <Switch>
@@ -101,8 +96,8 @@ class App extends Component {
                 )}
               />
             ))}
-            <Route path="/login" exact render={({props})=>(
-              this.state.loggedIn ? <Redirect to='/'/> : <Login {...props} loggedIn={this.state.loggedIn} />
+            <Route key="/login" path="/login" exact render={({props})=>(
+              this.state.loggedIn ? <Redirect to='/'/> : <Login {...props}  />
             )}/>
             <Layout>
               <Route exact render={({props})=>(

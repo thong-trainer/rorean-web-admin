@@ -1,8 +1,6 @@
 import React from "react";
 import { Link, Redirect } from 'react-router-dom';
 import ContactStore from "../../stores/ContactStore";
-import Loading from "../../components/layout/Loading";
-
 
 export default class View extends React.Component {
   constructor() {
@@ -21,7 +19,7 @@ export default class View extends React.Component {
     var item = ContactStore.getById(this.props.match.params.id);
     this.setState({ item: item });
   }
-  
+
 
   render() {
 

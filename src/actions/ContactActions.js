@@ -13,7 +13,7 @@ export function reloadItemsAsync() {
   axios(url).then((data) => {
     // receive dispatcher
     dispatcher.dispatch({
-      type: AppConstants.RECEIVE_CONTACT,
+      type: AppConstants.CONTACT_RECEIVE,
       items: data["data"]
     });
   });
@@ -33,7 +33,6 @@ export function create(item) {
     console.log(error);
     NotificationManager.error(Messages.ERROR_MESSAGE, Messages.ERROR_TITLE);
   });
-
 }
 
 export function update(item) {
