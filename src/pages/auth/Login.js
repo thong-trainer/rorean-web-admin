@@ -47,8 +47,6 @@ class Login extends React.Component {
     this.setState({ loading: false, invalid: true, errorMessage: message });
   };
 
-
-
   handleSubmit(event) {
     event.preventDefault();
     this.enableLoading();
@@ -110,6 +108,9 @@ class Login extends React.Component {
   }
 
   render() {
+    const marginStyles = {
+        marginTop: "0px",
+    };
 
     const { loading, telephone, password, invalid, errorMessage, remember } = this.state;
 
@@ -134,7 +135,7 @@ class Login extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-8">
-              <div class="checkbox">
+              <div className="checkbox" style={marginStyles}>
              <label>
                <input checked={remember} onChange={e => this.checkBoxChange(e)} type="checkbox"/>
                Remeber password
