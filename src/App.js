@@ -61,7 +61,6 @@ class App extends Component {
     var setting = props.cookies.get(AppConstants.SETTING_KEY);
     this.state = {
       loggedIn: (setting === undefined) ? false : true,
-      school: {}
     }
   }
 
