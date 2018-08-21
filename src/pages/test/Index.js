@@ -1,6 +1,6 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {NotificationContainer} from 'react-notifications';
+import { Link } from "react-router-dom";
+import { NotificationContainer } from 'react-notifications';
 import * as ContactActions from "../../actions/ContactActions";
 import ContactStore from "../../stores/ContactStore";
 import AppConstants from "../../constants/AppConstants";

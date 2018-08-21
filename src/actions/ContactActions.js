@@ -3,7 +3,7 @@ import  * as Api from "../utils/AppAPI";
 import axios from 'axios';
 import 'react-notifications/lib/notifications.css';
 import { NotificationManager } from 'react-notifications';
-const querystring = require('querystring');
+
 const AppConstants = require("../constants/AppConstants");
 const Messages = require("../constants/Messages");
 const LIMIT = 50;
@@ -20,8 +20,12 @@ export function reloadItemsAsync() {
 }
 
 export function create(item) {
+
+  console.log("Item: ", item);
+
   const url = Api.createContact();
-  axios.post(url, querystring.stringify(item)).then((response) => {
+  console.log("URL: ", url);
+  axios.post(url, item).then((response) => {
     // success message
     NotificationManager.success(Messages.CREATE_SUCCESS_MESSAGE, Messages.SUCCESS_TITLE);
     // create dispatcher
@@ -31,6 +35,10 @@ export function create(item) {
     });
   }).catch(function (error) {
     console.log(error);
+    dispatcher.dispatch({
+        type: AppConstants.CONTACT_ERROR,
+        message: error
+    });
     NotificationManager.error(Messages.ERROR_MESSAGE, Messages.ERROR_TITLE);
   });
 }

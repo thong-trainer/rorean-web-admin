@@ -7,7 +7,6 @@ import  Messages from "../../constants/Messages";
 import axios from 'axios';
 
 const AppConstants = require("../../constants/AppConstants");
-const querystring = require('querystring');
 
 class Login extends React.Component {
   static propTypes = {
@@ -52,12 +51,14 @@ class Login extends React.Component {
     this.enableLoading();
 
     const { telephone, password, remember } = this.state;
+    // remove spaces from string
+    const phone = "855-" + telephone.split(' ').join('');
+    const item = { telephone: phone, password: password };
 
-    const item = { telephone: telephone, password: password };
     // get login api
     var url = Api.authLogin();
     // check user authentication
-    axios.put(url, querystring.stringify(item)).then((userResponse) => {
+    axios.put(url, item).then((userResponse) => {
       if(userResponse.status === HttpStatus.OK) {
         // get permission api
         url = Api.getPermission(userResponse["data"]._id);
@@ -125,7 +126,7 @@ class Login extends React.Component {
         <p className="login-box-msg">Sign in</p>
         <form onSubmit={this.handleSubmit}>
           <div className={classForm}>
-            <input id="telephone" value={telephone || ''} onChange={e => this.change(e)} type="text" className="form-control" placeholder="Mobile number" required/>
+            <input id="telephone" value={telephone || ''} onChange={e => this.change(e)} type="text" className="form-control" placeholder="Mobile number (ex: 094 323 232)" required/>
             <span className={loading ? "fa fa-refresh fa-spin form-control-feedback" : "glyphicon glyphicon-envelope form-control-feedback"}></span>
           </div>
           <div className={classForm}>

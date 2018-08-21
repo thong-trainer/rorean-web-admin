@@ -58,10 +58,12 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    var setting = props.cookies.get(AppConstants.SETTING_KEY);
+    const setting = props.cookies.get(AppConstants.SETTING_KEY);
     this.state = {
       loggedIn: (setting === undefined) ? false : true,
     }
+
+    console.log("App: ", this.state.currentUser);
   }
 
   componentWillUpdate() {

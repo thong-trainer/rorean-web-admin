@@ -17,7 +17,11 @@ export default class Form extends React.Component {
     this.state = {
         loading: false,
         isEdit: false,
-        item: {}
+        item: {
+          name: "",
+          email: "",
+          description: ""
+        }
     };
   }
 
@@ -25,6 +29,7 @@ export default class Form extends React.Component {
     if(this.props.match.params.id !== undefined) {
         this.getItem();
     }
+
     ContactStore.on(AppConstants.CHANGE_EVENT, this.onStoreChanged);
   }
 
@@ -33,10 +38,14 @@ export default class Form extends React.Component {
   }
 
   onStoreChanged() {
-    this.disableLoading();
-    if(!this.state.isEdit) {
-      this.setState({ item: {} });
+    // to clean data when success
+    if(ContactStore.isSuccessed()){
+      if(!this.state.isEdit) {
+        this.setState({ item: {} });
+      }
     }
+
+    this.disableLoading();
   }
 
   getItem() {
@@ -48,21 +57,9 @@ export default class Form extends React.Component {
   }
 
   change = e => {
-    var editItem = this.state.item;
-    switch (e.target.id) {
-      case "name":
-        editItem.name = e.target.value;
-        break;
-      case "email":
-        editItem.email = e.target.value;
-        break;
-      case "description":
-        editItem.description = e.target.value;
-        break;
-      default:
-    }
-
-    this.setState({ item: editItem });
+    const item = {...this.state.item};
+    item[e.target.id] = e.target.value
+    this.setState({ item: item });
   };
 
   enableLoading = () => {
@@ -76,6 +73,7 @@ export default class Form extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.enableLoading();
+
 
     if(this.state.isEdit) {
       ContactActions.update(this.state.item);

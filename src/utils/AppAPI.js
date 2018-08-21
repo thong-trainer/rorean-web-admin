@@ -31,7 +31,7 @@ const DOMAIN = "http://128.199.88.174:3333";
 const PATH = "/api/v1";
 const URL = DOMAIN + PATH;
 const ACCESS_TOKEN = "?access_token=123456789";
-const SCHOOL_ID = localStorage.getItem(AppConstants.SCHOOL_ID_KEY);
+
 
 export function getDomain(){
   return DOMAIN;
@@ -46,9 +46,59 @@ export function getPermission(userId){
 }
 
 export function getSchool(){
-  return URL + "/school/" + SCHOOL_ID + ACCESS_TOKEN;
+  const schoolId = localStorage.getItem(AppConstants.SCHOOL_ID_KEY);
+  return URL + "/school/" + schoolId + ACCESS_TOKEN;
 }
 
+// ROOM MODULE
 export function getRooms(){
-  return URL + "/room/" + SCHOOL_ID + ACCESS_TOKEN;
+  const schoolId = localStorage.getItem(AppConstants.SCHOOL_ID_KEY);
+  return URL + "/room/" + schoolId + ACCESS_TOKEN;
+}
+
+export function createRoom(){
+  return URL + "/room" + ACCESS_TOKEN;
+}
+
+export function updateRoom(id){
+  return URL + "/room/" + id + ACCESS_TOKEN;
+}
+
+export function removeRoom(id){
+  return URL + "/room/desactive/" + id + ACCESS_TOKEN;
+}
+
+// LEVEL MODULE
+export function getLevels(){
+  const schoolId = localStorage.getItem(AppConstants.SCHOOL_ID_KEY);
+  return URL + "/level/" + schoolId + ACCESS_TOKEN;
+}
+
+export function createLevel(){
+  return URL + "/level" + ACCESS_TOKEN;
+}
+
+export function updateLevel(id){
+  return URL + "/level/" + id + ACCESS_TOKEN;
+}
+
+export function removeLevel(id){
+  return URL + "/level/desactive/" + id + ACCESS_TOKEN;
+}
+// DEPARTMENT MODULE
+export function getDepartments(){
+  const schoolId = localStorage.getItem(AppConstants.SCHOOL_ID_KEY);
+  return URL + "/department/" + schoolId + ACCESS_TOKEN;
+}
+
+export function createDepartment(){
+  return URL + "/department" + ACCESS_TOKEN;
+}
+
+export function updateDeparment(id){
+  return URL + "/department/" + id + ACCESS_TOKEN;
+}
+
+export function removeDepartment(id){
+  return URL + "/department/desactive/" + id + ACCESS_TOKEN;
 }
