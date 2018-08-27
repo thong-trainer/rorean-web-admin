@@ -11,7 +11,7 @@ export default class SideBar extends React.Component {
     super(props);
     this.getItem = this.getItem.bind(this);
     this.state = {
-      school: JSON.parse(localStorage.getItem(localStorage.getItem(AppConstants.SCHOOL_KEY)))
+      school: JSON.parse(localStorage.getItem(AppConstants.SCHOOL_KEY))
     }
   }
 
@@ -27,7 +27,7 @@ export default class SideBar extends React.Component {
   getItem() {
     var item = SchoolStore.getItem();
     this.setState({ school: item });
-    localStorage.setItem(localStorage.getItem(AppConstants.SCHOOL_KEY), JSON.stringify(item));
+    localStorage.setItem(AppConstants.SCHOOL_KEY, JSON.stringify(item));
   }
 
   getNavLinkClass = (path) => {

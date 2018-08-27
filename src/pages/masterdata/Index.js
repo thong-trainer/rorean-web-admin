@@ -28,11 +28,11 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.onStoreChanged = this.onStoreChanged.bind(this);
-    this.handleAddRoom = this.handleAddRoom.bind(this);
+    this.handleRoom = this.handleRoom.bind(this);
     this.handleCancelEditRoom = this.handleCancelEditRoom.bind(this);
-    this.handleAddLevel = this.handleAddLevel.bind(this);
+    this.handleLevel = this.handleLevel.bind(this);
     this.handleCancelEditLevel = this.handleCancelEditLevel.bind(this);
-    this.handleAddDepartment = this.handleAddDepartment.bind(this);
+    this.handleDepartment = this.handleDepartment.bind(this);
     this.handleCancelEditDepartment = this.handleCancelEditDepartment.bind(this);
     const setting = props.cookies.get(AppConstants.SETTING_KEY);
     const rooms = MasterDataStore.getRooms()
@@ -151,7 +151,7 @@ class Index extends React.Component {
     this.setState({room: item});
   };
 
-  handleAddRoom(event) {
+  handleRoom(event) {
     event.preventDefault();
     const item = this.state.room;
     if (item.saving) {
@@ -212,7 +212,7 @@ class Index extends React.Component {
     this.setState({level: item});
   };
 
-  handleAddLevel(event) {
+  handleLevel(event) {
     event.preventDefault();
     const item = this.state.level;
     if (item.saving) {
@@ -273,7 +273,7 @@ class Index extends React.Component {
     this.setState({department: item});
   };
 
-  handleAddDepartment(event) {
+  handleDepartment(event) {
     event.preventDefault();
     const item = this.state.department;
     if (item.saving) {
@@ -368,7 +368,9 @@ class Index extends React.Component {
                   <div className="box-header">
                     <h3 className="box-title">Add a room</h3>
                     <p className="text-muted">Enter a room that has in your school below to allow the classroom can be relate to it.</p>
-                    <form className="form custom-horizontal" onSubmit={this.handleAddRoom}>
+                  </div>
+                  <div className="box-body">
+                    <form className="form custom-horizontal" onSubmit={this.handleRoom}>
                       <div className="row">
                         <div className="col-lg-4">
                           <div className="form-group">
@@ -392,7 +394,10 @@ class Index extends React.Component {
                         </div>
                       </div>
                     </form>
-
+                  </div>
+                </div>
+                <div className="box">
+                  <div className="box-header">
                     <h3 className="box-title">Rooms</h3>
                   </div>
                   <div className="box-body">
@@ -438,7 +443,9 @@ class Index extends React.Component {
                   <div className="box-header">
                     <h3 className="box-title">Add a department</h3>
                     <p className="text-muted">Enter a department that has in your school below to allow the subject can be relate to it.</p>
-                    <form className="form custom-horizontal" onSubmit={this.handleAddDepartment}>
+                  </div>
+                  <div className="box-body">
+                    <form className="form custom-horizontal" onSubmit={this.handleDepartment}>
                       <div className="row">
                         <div className="col-lg-4">
                           <div className="form-group">
@@ -462,7 +469,11 @@ class Index extends React.Component {
                         </div>
                       </div>
                     </form>
+                  </div>
+                </div>
 
+                <div className="box">
+                  <div className="box-header">
                     <h3 className="box-title">Departments</h3>
                   </div>
                   <div className="box-body">
@@ -508,7 +519,9 @@ class Index extends React.Component {
                   <div className="box-header">
                     <h3 className="box-title">Add a level</h3>
                     <p className="text-muted">Enter a level that has in your school below to allow the subject can be relate to it.</p>
-                    <form className="form custom-horizontal" onSubmit={this.handleAddLevel}>
+                  </div>
+                  <div className="box-body">
+                    <form className="form custom-horizontal" onSubmit={this.handleLevel}>
                       <div className="row">
                         <div className="col-lg-4">
                           <div className="form-group">
@@ -532,7 +545,11 @@ class Index extends React.Component {
                         </div>
                       </div>
                     </form>
+                  </div>
+                </div>
 
+                <div className="box">
+                  <div className="box-header">
                     <h3 className="box-title">Levels</h3>
                   </div>
                   <div className="box-body">

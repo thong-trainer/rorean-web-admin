@@ -62,8 +62,14 @@ class App extends Component {
     this.state = {
       loggedIn: (setting === undefined) ? false : true,
     }
+  }
 
-    console.log("App: ", this.state.currentUser);
+  componentWillMount() {
+    // to sign out when school id doesn't exists in the localStorage
+    const schoolId = localStorage.getItem(AppConstants.SCHOOL_ID_KEY);
+    if(schoolId === null || schoolId === undefined) {
+      this.setState({loggedIn: false});
+    }
   }
 
   componentWillUpdate() {
